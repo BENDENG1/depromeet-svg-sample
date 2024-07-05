@@ -26,10 +26,40 @@
         android:layout_marginTop="24dp"
         android:overScrollMode="never"
         android:paddingBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnZoomIn"
+        app:layout_constraintBottom_toTopOf="@+id/tvRedSection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStateName" />
+
+
+    <TextView
+        android:id="@+id/tvRedSection"
+        android:text="레드 구역"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/etSendDataField"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvGraySection"
+        android:text="회색 구역"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@id/etSendDataField"
+        app:layout_constraintStart_toEndOf="@id/tvRedSection"/>
+
+    <TextView
+        android:id="@+id/tvBlueSection"
+        android:text="파란 구역"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@id/etSendDataField"
+        app:layout_constraintStart_toEndOf="@id/tvGraySection"/>
 
     <EditText
         android:id="@+id/etSendDataField"
@@ -40,24 +70,6 @@
         app:layout_constraintBottom_toTopOf="@+id/btnSendToWeb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnZoomIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Zoom In"
-        app:layout_constraintBottom_toTopOf="@+id/etSendDataField"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnZoomOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zoom out"
-        app:layout_constraintBottom_toBottomOf="@+id/btnZoomIn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnZoomIn" />
 
     <Button
         android:id="@+id/btnSendToWeb"
