@@ -22,24 +22,25 @@
     <WebView
         android:id="@+id/webView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
         android:overScrollMode="never"
         android:paddingBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvRedSection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStateName" />
-
+<!-- app:layout_constraintBottom_toTopOf="@+id/tvRedSection"-->
 
     <TextView
         android:id="@+id/tvRedSection"
-        android:text="레드 구역"
-        android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/etSendDataField"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginTop="20dp"
+        android:text="레드 구역"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/webView" />
 
     <TextView
         android:id="@+id/tvGraySection"
@@ -47,9 +48,9 @@
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toTopOf="@id/etSendDataField"
-        app:layout_constraintStart_toEndOf="@id/tvRedSection"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tvRedSection"
+        app:layout_constraintStart_toStartOf="@id/tvRedSection"/>
 
     <TextView
         android:id="@+id/tvBlueSection"
@@ -57,9 +58,9 @@
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toTopOf="@id/etSendDataField"
-        app:layout_constraintStart_toEndOf="@id/tvGraySection"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tvGraySection"
+        app:layout_constraintStart_toStartOf="@id/tvGraySection"/>
 
     <EditText
         android:id="@+id/etSendDataField"

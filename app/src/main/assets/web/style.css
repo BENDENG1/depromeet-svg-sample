@@ -1,0 +1,9 @@
+/* 밝은 색상 스타일 */
+.bright {
+    fill-opacity: 0.5;
+}
+
+/* 어두운 색상 스타일 */
+.dark {
+    fill-opacity: 1.0;
+}

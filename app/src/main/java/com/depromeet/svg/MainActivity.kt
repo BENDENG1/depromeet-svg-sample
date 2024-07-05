@@ -14,7 +14,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.depromeet.svg.databinding.ActivityMainBinding
 import com.jkh.svgsample.getHTMLBody
-import kotlinx.coroutines.CoroutineDispatcher
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupButtonActions() {
         initProgressDialog()
-//        binding.btnZoomIn.setOnClickListener { binding.webView.zoomIn() }
-//        binding.btnZoomOut.setOnClickListener { binding.webView.zoomOut() }
         binding.btnSendToWeb.setOnClickListener {
             binding.webView.evaluateJavascript(
                 "javascript: " +
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun callVM() {
-        val url = "https://svgshare.com/i/17rA.svg"
+        val url = "https://svgshare.com/i/17vt.svg"
         try {
             viewModel.downloadFileFromServer(url)
                 .observe(this, Observer { responseBody ->
@@ -106,14 +104,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun test(){
-        binding.tvRedSection.setOnClickListener { injectJSSectionClicked() }
-        binding.tvBlueSection.setOnClickListener { injectJSSectionClicked() }
-        binding.tvGraySection.setOnClickListener { injectJSSectionClicked() }
+        binding.tvRedSection.setOnClickListener {
+            injectJSSectionClicked("RedSection",)
+        }
+        binding.tvBlueSection.setOnClickListener {
+            injectJSSectionClicked("BlueSection",)
+        }
+        binding.tvGraySection.setOnClickListener {
+            injectJSSectionClicked("GraySection",)
+        }
     }
 
-    private fun injectJSSectionClicked(){
-        val textToAndroid = "javascript: window.androidObj.textToAndroid = function(message) { " +
-                JAVASCRIPT_OBJ + ".zoomToSection(message) }"
+    private fun injectJSSectionClicked(sectionName: String){
+        val textToAndroid = "javascript: window.androidObj.handleAndroidClick('$sectionName')"
         binding.webView.loadUrl(textToAndroid)
     }
 
@@ -131,19 +134,12 @@ class MainActivity : AppCompatActivity() {
 
         @JavascriptInterface
         fun zoomToSection(sectionName : String){
-            val section = Section.values().find { it.sectionName == sectionName }
-            when(section){
-                Section.RED -> runOnUiThread {
-                    binding.webView.setInitialScale(200)
-                }
-                Section.BLUE -> runOnUiThread {
-                    binding.webView.setInitialScale(200)
-                }
-                Section.GRAY-> runOnUiThread {
-                    binding.webView.setInitialScale(200)
-                }
-                else -> {
-
+            Log.e("bbb","fromWeb testtest : $sectionName")
+            runOnUiThread {
+                when(sectionName){
+                    "RedSection" -> binding.webView.setInitialScale(200)
+                    "GraySection" -> binding.webView.setInitialScale(200)
+                    "BlueSection" -> binding.webView.setInitialScale(200)
                 }
             }
 
@@ -153,11 +149,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         binding.webView.removeJavascriptInterface(JAVASCRIPT_OBJ)
         super.onDestroy()
-    }
-
-    enum class Section(val sectionName : String){
-        RED("RedSection"),
-        BLUE("BlueSection"),
-        GRAY("GraySection")
     }
 }
