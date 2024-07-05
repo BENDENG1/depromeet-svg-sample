@@ -2,6 +2,7 @@ package com.depromeet.svg
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +14,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.depromeet.svg.databinding.ActivityMainBinding
+import com.depromeet.svg.databinding.ActivitySeatBinding
 import com.jkh.svgsample.getHTMLBody
-import kotlin.math.log
+
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -105,19 +107,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun test(){
         binding.tvRedSection.setOnClickListener {
-            injectJSSectionClicked("RedSection",)
+            injectJSSectionClicked("RedSection")
         }
         binding.tvBlueSection.setOnClickListener {
-            injectJSSectionClicked("BlueSection",)
+            injectJSSectionClicked("BlueSection")
         }
         binding.tvGraySection.setOnClickListener {
-            injectJSSectionClicked("GraySection",)
+            injectJSSectionClicked("GraySection")
         }
     }
 
     private fun injectJSSectionClicked(sectionName: String){
         val textToAndroid = "javascript: window.androidObj.handleAndroidClick('$sectionName')"
         binding.webView.loadUrl(textToAndroid)
+    }
+
+    private fun moveSeatAcitvity(section : String){
+        val intent = Intent(this,SeatActivity::class.java)
+        intent.putExtra("section",section)
+        startActivity(intent)
     }
 
 
@@ -130,6 +138,7 @@ class MainActivity : AppCompatActivity() {
                 binding.tvStateName.text = fromWeb
             }
             Toast.makeText(this@MainActivity, fromWeb, Toast.LENGTH_SHORT).show()
+            moveSeatAcitvity(fromWeb)
         }
 
         @JavascriptInterface
@@ -137,9 +146,10 @@ class MainActivity : AppCompatActivity() {
             Log.e("bbb","fromWeb testtest : $sectionName")
             runOnUiThread {
                 when(sectionName){
-                    "RedSection" -> binding.webView.setInitialScale(200)
-                    "GraySection" -> binding.webView.setInitialScale(200)
-                    "BlueSection" -> binding.webView.setInitialScale(200)
+                    "RedSection" -> binding.webView.zoomIn()
+                    "GraySection" -> binding.webView.zoomIn()
+                    "BlueSection" -> binding.webView.zoomIn()
+                    else -> binding.webView.zoomOut()
                 }
             }
 
